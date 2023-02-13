@@ -1,9 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, NavLink } from "react-router-dom";
 import Home from "./components/Home";
 import About from "./components/About";
 import Users from "./components/Users";
 import User from "./components/User";
+import Error404 from "./components/Error404";
 
 function App() {
 	return (
@@ -12,14 +13,20 @@ function App() {
 				<nav>
 					<ul>
 						<li>
-							<Link to="/">Home</Link>
-							{/* Sayfa yenilenmesin istiyorsak link komponenti kullanılır */}
+							<NavLink activeClassName="active" to="/" exact>
+								Home
+							</NavLink>
+							{/* Sayfa yenilenmesin istiyorsak NavLink komponenti kullanılır */}
 						</li>
 						<li>
-							<Link to="/about">About</Link>
+							<NavLink activeClassName="active" to="/about">
+								About
+							</NavLink>
 						</li>
 						<li>
-							<Link to="/users">Users</Link>
+							<NavLink activeClassName="active" to="/users">
+								Users
+							</NavLink>
 						</li>
 					</ul>
 				</nav>
@@ -30,7 +37,7 @@ function App() {
 					<Route path="/" exact component={Home} />
 					<Route path="/about" component={About} />
 					<Route path="/users" component={Users} />
-					<Route path="/user/:id" component={User} />
+					<Route path="*" component={Error404} />
 				</Switch>
 			</div>
 		</Router>

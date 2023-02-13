@@ -1,11 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
+import User from "./User";
 
 function Users() {
 	const [loading, setLoading] = useState(true);
 
 	const [users, setUsers] = useState([]);
+
+	const { path, url } = useRouteMatch();
+	console.log(path, url);
 
 	useEffect(() => {
 		axios("https://jsonplaceholder.typicode.com/users")
@@ -20,10 +24,19 @@ function Users() {
 			<ul>
 				{users.map((user) => (
 					<li key="user.id">
-						<Link to={`/user/${user.id}`}>{user.name}</Link>
+						<NavLink activeClassName="active" to={`${url}/${user.id}`}>
+							{user.name}
+						</NavLink>
 					</li>
 				))}
 			</ul>
+
+			<Switch>
+				<Route exact path={path}>
+					<h3>Please select a user.</h3>
+				</Route>
+				<Route path={`${path}/:id`} component={User} />
+			</Switch>
 		</div>
 	);
 }

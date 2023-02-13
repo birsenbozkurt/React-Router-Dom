@@ -6,14 +6,13 @@ function User() {
 	const [loading, setLoading] = useState(true);
 
 	const [user, setUser] = useState({});
-
 	const { id } = useParams();
-
 	useEffect(() => {
 		axios(`https://jsonplaceholder.typicode.com/users/${id}`)
 			.then((res) => setUser(res.data))
 			.finally(() => setLoading(false));
 	}, [id]);
+
 	return (
 		<div>
 			<h1>User Detail</h1>
@@ -23,7 +22,7 @@ function User() {
 			<br />
 			<br />
 
-			<Link to={`/user/${parseInt(id) + 1}`}>Next User ({parseInt(id) + 1})</Link>
+			<Link to={`/users/${parseInt(id) + 1}`}>Next User ({parseInt(id) + 1})</Link>
 		</div>
 	);
 }
